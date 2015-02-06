@@ -1,0 +1,202 @@
+
+CREATE TABLE "tracker_residence" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "residence_name" varchar(200) NOT NULL
+);
+
+CREATE TABLE "tracker_child" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "residence_id" integer NOT NULL REFERENCES "tracker_residence" ("id"),
+    "first_name" varchar(200) NOT NULL,
+    "last_name" varchar(200) NOT NULL,
+    "birthdate" date NOT NULL,
+    "birthplace" varchar(200) NOT NULL,
+    "intake_date" date NOT NULL,
+    "photo" varchar(100) NOT NULL
+);
+
+CREATE TABLE "tracker_bloodexam" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "date" date NOT NULL,
+    "hemogloban_normal" bool NOT NULL,
+    "hemogloban_notes" text NOT NULL,
+    "elisa_vh1_normal" bool NOT NULL,
+    "elisa_vh1_notes" text NOT NULL,
+    "hepatitis_b_normal" bool NOT NULL,
+    "hepatitis_b_notes" text NOT NULL,
+    "ppd_normal" bool NOT NULL,
+    "ppd_notes" text NOT NULL,
+    "orina_normal" bool NOT NULL,
+    "orina_notes" text NOT NULL,
+    "white_cells_normal" bool NOT NULL,
+    "white_cells_notes" text NOT NULL,
+    "nitrites_normal" bool NOT NULL,
+    "nitrites_notes" text NOT NULL,
+    "urobilinogen_normal" bool NOT NULL,
+    "urobilinogen_notes" text NOT NULL,
+    "protein_normal" bool NOT NULL,
+    "protein_notes" text NOT NULL,
+    "ph_normal" bool NOT NULL,
+    "ph_notes" text NOT NULL,
+    "density_normal" bool NOT NULL,
+    "density_notes" text NOT NULL,
+    "glucoce_normal" bool NOT NULL,
+    "glucoce_notes" text NOT NULL
+);
+
+CREATE TABLE "tracker_bloodparasite" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "exam_id" integer NOT NULL REFERENCES "tracker_bloodexam" ("id"),
+    "parasite" varchar(200) NOT NULL
+);
+
+CREATE TABLE "tracker_signature" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "nombres" varchar(200) NOT NULL,
+    "apellidos" varchar(200) NOT NULL,
+    "emp" varchar(200) NOT NULL,
+    "direccion" varchar(200) NOT NULL,
+    "celular" varchar(200) NOT NULL
+);
+
+CREATE TABLE "tracker_dentalexam" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "signature_id" integer NOT NULL REFERENCES "tracker_signature" ("id"),
+    "date" date NOT NULL,
+    "diagnostico" text NOT NULL,
+    "recommendation" text NOT NULL
+);
+
+CREATE TABLE "tracker_medicalexampart1info" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "signature_id" integer NOT NULL REFERENCES "tracker_signature" ("id"),
+    "date" date NOT NULL,
+    "bcg_vaccine" bool NOT NULL,
+    "bcg_vaccine_date" date NOT NULL,
+    "polio_vaccine" bool NOT NULL,
+    "polio_vaccine_date" date NOT NULL,
+    "dpt_vaccine" bool NOT NULL,
+    "dpt_vaccine_date" date NOT NULL,
+    "hepatitis_b_vaccine" bool NOT NULL,
+    "hepatitis_b_vaccine_date" date NOT NULL,
+    "flu_vaccine" bool NOT NULL,
+    "flu_vaccine_date" date NOT NULL,
+    "yellow_fever_vaccine" bool NOT NULL,
+    "yellow_fever_vaccine_date" date NOT NULL,
+    "spr_vaccine" bool NOT NULL,
+    "spr_vaccine_date" date NOT NULL,
+    "hpv_vaccine" bool NOT NULL,
+    "hpv_vaccine_date" date NOT NULL,
+    "pneumococcal_vaccine" bool NOT NULL,
+    "pneumococcal_vaccine_date" date NOT NULL,
+    "weight" real NOT NULL,
+    "height" real NOT NULL
+);
+
+CREATE TABLE "tracker_medicalexampart2info" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "signature_id" integer NOT NULL REFERENCES "tracker_signature" ("id"),
+    "date" date NOT NULL,
+    "illness_notes" text NOT NULL,
+    "appetite_notes" text NOT NULL,
+    "sleep_notes" text NOT NULL,
+    "visual_acuity_right" varchar(200) NOT NULL,
+    "visual_acuity_left" varchar(200) NOT NULL,
+    "appearance_notes" text NOT NULL,
+    "skin_notes" text NOT NULL,
+    "lymph_notes" text NOT NULL,
+    "neck_notes" text NOT NULL,
+    "lung_notes" text NOT NULL,
+    "cardio_notes" text NOT NULL,
+    "abdomen_notes" text NOT NULL,
+    "genitourinary_notes" text NOT NULL,
+    "extremities_notes" text NOT NULL,
+    "neurological_notes" text NOT NULL,
+    "treatment_notes" text NOT NULL,
+    "recommendation" text NOT NULL
+);
+
+CREATE TABLE "tracker_medicalexamdiagnosis" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "exam_id" integer NOT NULL REFERENCES "tracker_medicalexampart2info" ("id"),
+    "name" varchar(200) NOT NULL,
+    "value" text NOT NULL
+);
+
+CREATE TABLE "tracker_psychologicalexaminfo" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "signature_id" integer NOT NULL REFERENCES "tracker_signature" ("id"),
+    "date" date NOT NULL,
+    "family_notes" text NOT NULL,
+    "physical_description" text NOT NULL,
+    "intelectual_notes" text NOT NULL,
+    "organicity_notes" text NOT NULL,
+    "psychomotor_notes" text NOT NULL,
+    "emotional_notes" text NOT NULL,
+    "recommendation" text NOT NULL
+);
+CREATE TABLE "tracker_psychologicalexamdiagnosis" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "title" varchar(200) NOT NULL,
+    "dwmq" varchar(200) NOT NULL,
+    "exam_id" integer NOT NULL REFERENCES "tracker_psychologicalexaminfo" ("id")
+);
+
+CREATE TABLE "tracker_socialexaminfo" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "signature_id" integer NOT NULL REFERENCES "tracker_signature" ("id"),
+    "date" date NOT NULL,
+    "has_birth_certificate" bool NOT NULL,
+    "original_birth_certificate" bool NOT NULL,
+    "dni" bool NOT NULL,
+    "dni_in_process" bool NOT NULL,
+    "dni_comments" text NOT NULL,
+    "sis" bool NOT NULL,
+    "sis_in_process" bool NOT NULL,
+    "sis_comments" text NOT NULL,
+    "antecedents" text NOT NULL,
+    "family_situation" text NOT NULL,
+    "health_situation" text NOT NULL,
+    "housing_situation" text NOT NULL,
+    "economic_situation" text NOT NULL,
+    "general_comments" text NOT NULL,
+    "visitors_allowed" bool NOT NULL,
+    "visitors_notes" text NOT NULL,
+    "social_diagnosis" text NOT NULL,
+    "recommendation" text NOT NULL
+);
+
+CREATE TABLE "tracker_consultationhistory" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "date" date NOT NULL,
+    "institution" varchar(200) NOT NULL,
+    "notes" text NOT NULL
+);
+
+CREATE TABLE "tracker_diseasehistory" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "date" date NOT NULL,
+    "institution" varchar(200) NOT NULL,
+    "diagnosis" text NOT NULL,
+    "studies" text NOT NULL,
+    "treatment" text NOT NULL
+);
+
+CREATE TABLE "tracker_operationhistory" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "child_id" integer NOT NULL REFERENCES "tracker_child" ("id"),
+    "date" date NOT NULL,
+    "institution" varchar(200) NOT NULL,
+    "preop_diagnosis" text NOT NULL,
+    "intervention" text NOT NULL,
+    "postop_diagnosis" text NOT NULL
+);
+
