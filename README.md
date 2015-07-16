@@ -10,3 +10,12 @@ schema.txt is the current database schema.  We'd like to achive three things:
 1) Reorganize it to match the desired forms & actual information that we want to capture.
 2) Create english names for the fields.
 3. Create spanish translations for the display.
+
+History
+
+Girasoles.pdf was the beginning.
+From there, we created the schema.
+
+Then Ben talked to the Dr. and the requirements changed.
+
+Then the HBI_MOcksupV2, 

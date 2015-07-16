@@ -200,3 +200,15 @@ CREATE TABLE "tracker_operationhistory" (
     "postop_diagnosis" text NOT NULL
 );
 
+CREATE TABLE "tracker_bloodexam" (
+CREATE TABLE "tracker_bloodparasite" (
+CREATE TABLE "tracker_dentalexam" (
+CREATE TABLE "tracker_medicalexampart1info" (
+CREATE TABLE "tracker_medicalexampart2info" (
+CREATE TABLE "tracker_medicalexamdiagnosis" (
+CREATE TABLE "tracker_psychologicalexaminfo" (
+CREATE TABLE "tracker_psychologicalexamdiagnosis" (
+CREATE TABLE "tracker_socialexaminfo" (
+CREATE TABLE "tracker_consultationhistory" (
+CREATE TABLE "tracker_diseasehistory" (
+CREATE TABLE "tracker_operationhistory" (
